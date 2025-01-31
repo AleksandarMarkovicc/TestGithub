@@ -8,10 +8,6 @@ describe('Edit', ()=>{
     beforeEach('BeforeEach', ()=>{
         cy.login()
 
-        //cy.visit('https://conduit.bondaracademy.com/login')
-        //cy.get('[placeholder="Email"]').type('aleksandar.v.markovic@gmail.com')
-        //cy.get('[placeholder="Password"]').type('Kursic')
-        //cy.get('[class="btn btn-lg btn-primary pull-xs-right"]').click()
     })
 
     it('test1', ()=>{
@@ -21,7 +17,7 @@ describe('Edit', ()=>{
 
         cy.wait('@getArticles')
 
-        cy.contains('[class="article-preview"]', 'pelikan').click()
+        cy.clickOnArticle('Arena')
 
         cy.wait('@Article')
 
@@ -29,7 +25,7 @@ describe('Edit', ()=>{
 
         cy.wait('@getArticles')
 
-        cy.get('[class="article-preview"]').should('not.have.value', 'pelikan')
+        cy.get('[class="article-preview"]').should('not.have.value', 'Arena')
         
 
     })
@@ -40,23 +36,12 @@ describe('Edit', ()=>{
 
         cy.wait('@getArticles')
 
-        cy.contains('[class="nav-item"]', 'New Article').click()
+        cy.clickItem('New Article')
         cy.wait(4000)
 
-        //cy.get('[formcontrolname="title"]').type('sreda')
-        //cy.get('[formcontrolname="description"]').type('30januar')
-        //cy.get('[formcontrolname="body"]').type('2025')
-        //cy.get('[placeholder="Enter tags"]').type('30')
-        //cy.get('[class="btn btn-lg pull-xs-right btn-primary"]').click()
         cy.createArticle('ponovo','moratako','opala','5555')
         
         cy.wait('@Article')
-
-        //cy.clickItem('Home')
-        //cy.clickOnArticle('sreda')
-        //cy.wait('@Article')
-        //cy.get(articlePageElements.title).should('have.text','sreda')
-
 
         cy.deleteDown()
 

@@ -12,39 +12,40 @@ describe('Edit', () => {
     it('test1', () => {
         cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles?limit=10&offset=0').as('getArticles')
         cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles/*-14104').as('Article')
-
+        cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles?author=aleksandar.v.markovic@gmail.com&limit=10&offset=0').as('myArticles')
 
         cy.wait('@getArticles')
 
-        cy.clickOnArticle('blok004')
+        cy.clickOnArticle('blok011')
 
         cy.wait('@Article')
 
-        //cy.get('[class="btn btn-sm btn-outline-secondary"]').eq(0).click()-POM 
         cy.editUp()
 
         cy.wait(4000)
 
         cy.get(createArticleElements.title).click()
             .clear()
-            .type('blok004')
+            .type('blok022')
         cy.get(createArticleElements.description).click()
             .clear()
-            .type('description13')
+            .type('description23')
         cy.get(createArticleElements.body)
             .clear()
-            .type('body13')
-        cy.get(createArticleElements.tags).type('pom3')
+            .type('body33')
+        cy.get(createArticleElements.tags).type('pom33')
         cy.get('[class="btn btn-lg pull-xs-right btn-primary"]').click()
 
         cy.wait('@Article')
         
         //cy.get('[class="container"]').should('contain','title002')
-        cy.get('h1').should('have.text','blok004')
+        cy.get(articlePageElements.title).should('have.text','blok022')
 
         cy.userProfilUp()
         //user profil
-        cy.wait(4000)
+        cy.wait('@myArticles')
+
+        cy.get('[class="user-info"]').should('have.css', 'color', 'rgb(55, 58, 60)')
         
         //cy.wait('@Article').then(article=>{
             //console.log(article)
@@ -70,32 +71,25 @@ describe('Edit', () => {
 
         cy.wait('@getArticles')
 
-        //cy.contains('[class="article-preview"]', 'title002').click()
         cy.clickOnArticle('title002')
 
         cy.wait('@Article')
 
-        //cy.get('[class="btn btn-sm btn-outline-secondary"]').last().click()-komanda
         cy.editDown()
 
         cy.wait(4000)
 
-        //cy.get('[formcontrolname="title"]').type('create2')
-        //cy.get('[formcontrolname="description"]').type('cetvrtak')
         cy.get(createArticleElements.body).click()
             .clear()
             .type('moraClick')
-        //cy.get('[placeholder="Enter tags"]').type('lol')
-        cy.get('[class="btn btn-lg pull-xs-right btn-primary"]').click()
-
-        cy.wait('@Article').then(elem =>{
-            console.log(elem)
-            expect(elem.response.body.article.body).to.equal('moraClick')
-        })
-
-
         
-        //cy.get(articlePageElements.title).should('have.text', 'title002')-radi pom
+            cy.get('[class="btn btn-lg pull-xs-right btn-primary"]').click()
+
+        cy.wait('@Article')
+
+        //cy.get('p').should('have.text','moraClick')
+
+        cy.get(articlePageElements.body).should('have.text','moraClick')
 
 
 

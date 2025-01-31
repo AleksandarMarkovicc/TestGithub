@@ -10,7 +10,7 @@ export{createArticleElements}
 const articlePageElements={
     editUp:'[class="btn btn-sm btn-outline-secondary"]',
     title:'h1',
-    body:'[class="col-md-12"]',
+    body:'p',
 
 }
 export{articlePageElements}

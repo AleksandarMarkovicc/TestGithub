@@ -17,7 +17,7 @@ describe('Create', ()=>{
         cy.clickItem('New Article')
         cy.wait(4000)
 
-        cy.createArticle('Arena','Arena_1','Arena_2','arena')
+        cy.createArticle('milica','suza','ana','ivana')
 
         cy.wait(4000)
 
@@ -25,12 +25,12 @@ describe('Create', ()=>{
         
         cy.wait('@getArticles').then(elem =>{
             console.log(elem)
-                expect(elem.response.body.articles[0].title).to.equal('Arena')
+                expect(elem.response.body.articles[0].title).to.equal('milica')
         })
 
     })
 
-    it.only('test-2', ()=>{
+    it('test-2', ()=>{
         cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles?limit=10&offset=0').as('getArticles')
         cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles/*').as('Article')
 
@@ -46,10 +46,6 @@ describe('Create', ()=>{
 
 
         cy.get(articlePageElements.title).should('have.text','beograd')
-        //cy.contains('[class="banner"]', 'create2')
-
-        
-
 
 
     })
